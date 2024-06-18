@@ -284,6 +284,8 @@ while close_and_gen.Value == 0
     drawnow
     pause(0.1)
 end
+
+
 %Save the last mask that was being worked on, if it had something in it
 if size(pos_store,1)>0
     save([save_dir,'/',visit_n(scan_n_previous).name,'_mask_file.mat'],'pla_roi','pos_store');
@@ -303,15 +305,20 @@ for mask_n = 1:length(mask_files)
     wall_mask = zeros(pla_roi.masksize);
     pla_mask = zeros(pla_roi.masksize);
 
-    for slice_n = 1:size(pla_roi.slice,2)
-        if size(pla_roi.slice(slice_n).uter_poly,1)>0
-            wall_mask(:,:,slice_n) = poly2mask(pla_roi.slice(slice_n).uter_poly(:,2),pla_roi.slice(slice_n).uter_poly(:,1),pla_roi.masksize(1),pla_roi.masksize(2));
-            pla_mask(:,:,slice_n) = poly2mask(pla_roi.slice(slice_n).pla_poly(:,2),pla_roi.slice(slice_n).pla_poly(:,1),pla_roi.masksize(1),pla_roi.masksize(2));
+
+    for slice_n = 1:pla_roi.masksize(3)
+        try
+            if size(pla_roi.slice(slice_n).uter_poly,1)>0
+                wall_mask(:,:,slice_n) = poly2mask(pla_roi.slice(slice_n).uter_poly(:,2),pla_roi.slice(slice_n).uter_poly(:,1),pla_roi.masksize(1),pla_roi.masksize(2));
+                pla_mask(:,:,slice_n) = poly2mask(pla_roi.slice(slice_n).pla_poly(:,2),pla_roi.slice(slice_n).pla_poly(:,1),pla_roi.masksize(1),pla_roi.masksize(2));
+            end
+        catch
         end
     end
 
-    niftiwrite(pla_mask,[mask_files(mask_n).folder,'\',mask_files(mask_n).name(1:end-14),'_pla_mask.nii.gz']);
-    niftiwrite(wall_mask,[mask_files(mask_n).folder,'\',mask_files(mask_n).name(1:end-14),'_wall_mask.nii.gz']);
+    niftiwrite(pla_mask,[mask_files(mask_n).folder,'\',mask_files(mask_n).name(1:end-14),'_pla_mask'])
+    niftiwrite(wall_mask,[mask_files(mask_n).folder,'\',mask_files(mask_n).name(1:end-14),'_wall_mask']);
+
 end
 
 
