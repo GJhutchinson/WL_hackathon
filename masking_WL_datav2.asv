@@ -33,7 +33,7 @@ addpath('C:\placental\Wl\Code')
 %off globus in
 daphne_dir = 'C:\placental\Wl\MRI Data (Manchester Team)\train';
 %Id number of participant you wish to mask
-daphne_mask_id = 16;
+daphne_mask_id = 44;
 %Directory to save/load data to
 save_dir = '../split_masks';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

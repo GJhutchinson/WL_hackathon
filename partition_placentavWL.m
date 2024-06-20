@@ -57,8 +57,8 @@ if pla_intersect(2)<pla_intersect(1)
 end
 
 
-no_wrap_tmp = uterus_pos_tmp(pla_intersect(1):pla_intersect(2)+1,:);
-wrap_tmp = [flip(uterus_pos_tmp(1:pla_intersect(1),:));flip(uterus_pos_tmp(pla_intersect(2)+1:end,:))];
+no_wrap_tmp = uterus_pos_tmp(pla_intersect(1):pla_intersect(2),:);
+wrap_tmp = [flip(uterus_pos_tmp(1:pla_intersect(1),:));flip(uterus_pos_tmp(pla_intersect(2)+1:end-3,:));uterus_pos_tmp(pla_intersect(2),:)];
 
 %Uter ID determines whether the longest line is uterus or placenta
 %1 the longest line is the top of the placenta
